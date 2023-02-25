@@ -1,4 +1,6 @@
 import { Box, Grid, ListItemButton, ListItemIcon, ListItemText, IconButton, Typography } from "@mui/material";
+import Footer from "@/components/footer";
+import { NextPageContext } from 'next'
 
 import AllAudio from '@/components/allaudio'
 import PlayList from '@/components/Playlist'
@@ -9,19 +11,26 @@ import SquareIcon from '@mui/icons-material/Square';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PauseIcon from '@mui/icons-material/Pause';
 
-interface MenuItem {
-  icon: any;
-  text: string;
-  href: string;
-  id?: number;
-}
 
+import { FileInfo } from "@/lib/global"
 type Props = {
-  visible: boolean;
+  files: FileInfo[];
 };
+
+export const getServerSideProps = async (ctx: NextPageContext) => {
+  const basename =
+    process.env.NODE_ENV === "development"
+      ? `http://${ctx.req?.headers.host}/`
+      : `https://${ctx.req?.headers.host}/`
+    ;
+  const res = await fetch(basename + "api/list")
+  const data = await res.json()
+  return { props: data }
+}
 
 export default function Home(props: Props) {
   const sx = { fontSize: "45px" };
+  const files = props.files;
   return (
     <>
       <Grid container spacing={1}>
@@ -43,12 +52,12 @@ export default function Home(props: Props) {
       </Grid>
 
       <Box>
-        <Typography variant="h4"> aaaaaaaaaa </Typography>
+        <Footer sx={{ position: "fixed", bottom: 0 }} />
       </Box>
 
       <Grid container spacing={1}>
         <Grid item xs={4}>
-          <AllAudio />
+          <AllAudio files={files}/>
         </Grid>
         <Grid item xs={8}>
           <PlayList />

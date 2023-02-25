@@ -1,80 +1,82 @@
-import * as React from 'react';
-import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
 
-export default function NestedList() {
-  const [open, setOpen] = React.useState(true);
+import FolderIcon from '@mui/icons-material/Folder';
+import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+import { MyAudioDir, MyAudio } from "@/components/MyAudioDir"
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+import { FileInfo } from "@/lib/global"
+import { useState } from "react";
+type Props = {
+  files: FileInfo[];
+};
 
+// const MyAudioDir = (f: FileInfo) => {
+//   let [expand, setExpand] = useState(false);
+//   return (
+//     <>
+//       <ListItemButton onClick={() => { setExpand(!expand) }}>
+//         <ListItemIcon>
+//           <FolderIcon />
+//         </ListItemIcon>
+//         <ListItemText primary={f.name} />
+//         {expand ? <ExpandLess /> : <ExpandMore />}
+//       </ListItemButton>
+//       <List component="li" disablePadding dense={true}>
+//         {expand &&
+//           f.child.map(c => MyAudio(c))
+//         }
+//       </List>
+//     </>
+//   )
+// }
+// const MyAudio = (f: FileInfo) => {
+//   if (f.is_directory) {
+//     return <MyAudioDir files={f} />;
+//     // return (
+//     //   <>
+//     //     <ListItemButton onClick={() => { setExpand(!expand) }}>
+//     //       <ListItemIcon>
+//     //         <FolderIcon />
+//     //       </ListItemIcon>
+//     //       <ListItemText primary={f.name} />
+//     //       {expand ? <ExpandLess /> : <ExpandMore />}
+//     //     </ListItemButton>
+//     //     <List component="li" disablePadding dense={true}>
+//     //       {expand &&
+//     //         f.child.map(c => MyAudio(c))
+//     //       }
+//     //     </List>
+//     //   </>
+//     // )
+//   } else {
+//     return (
+//       <ListItemButton>
+//         <ListItemIcon>
+//           <AudiotrackIcon />
+//         </ListItemIcon>
+//         <ListItemText primary={f.name} />
+//       </ListItemButton>
+//     )
+//   }
+// }
+
+export default function AllAudioList(props: Props) {
+  const files = props.files;
   return (
     <List
       sx={{
-        width: '100%', maxWidth: 360,
-        bgcolor: 'background.paper'
+        width: '100%', height: "100vh", overflowX: "scroll"
       }}
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div"
-          id="nested-list-subheader">
-          Nested List Items
-        </ListSubheader>
-      }
+      dense={true}
     >
-      <ListItemButton>
-        <ListItemIcon>
-          <SendIcon />
-        </ListItemIcon>
-        <ListItemText primary="Sent mail" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <DraftsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Drafts" />
-      </ListItemButton>
-      <ListItemButton onClick={handleClick}>
-        <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText primary="Inbox" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Starred" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="UnRead" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Read" />
-          </ListItemButton>
-        </List>
-      </Collapse>
+      {
+        files.map(c => MyAudio(c))
+      }
     </List>
   );
 }

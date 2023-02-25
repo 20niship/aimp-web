@@ -4,7 +4,6 @@ import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Header from "@/components/header";
-import Footer from "@/components/footer";
 
 const theme = createTheme({
   palette: {
@@ -22,7 +21,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <CssBaseline />
       <Header />
       <Component {...pageProps} />
-      <Footer sx={{ position: "fixed", bottom: 0 }} />
     </ThemeProvider>
   );
 }
