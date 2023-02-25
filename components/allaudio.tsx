@@ -75,7 +75,7 @@ export default function AllAudioList(props: Props) {
       dense={true}
     >
       {
-        files.map(c => MyAudio(c))
+        files.map(c => { return (<MyAudio file={c} key="" />); })
       }
     </List>
   );

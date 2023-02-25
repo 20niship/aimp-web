@@ -11,7 +11,7 @@ const theme = createTheme({
   },
 });
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   const [textVisible, setTextVisible] = useState(true);
   const textInvert = () => {
     setTextVisible(!textVisible);
@@ -24,4 +24,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     </ThemeProvider>
   );
 }
+
+import dynamic from "next/dynamic";
+import React from "react";
+
+export default dynamic(() => Promise.resolve(App), {
+  ssr: false,
+});
 

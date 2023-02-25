@@ -11,6 +11,7 @@ import SquareIcon from '@mui/icons-material/Square';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PauseIcon from '@mui/icons-material/Pause';
 
+import Wave from '@/components/wave2';
 
 import { FileInfo } from "@/lib/global"
 type Props = {
@@ -50,6 +51,10 @@ export default function Home(props: Props) {
           <IconButton><SkipNextIcon sx={sx} /></IconButton>
         </Grid>
       </Grid>
+
+      <Box>
+        <Wave />
+      </Box>
 
       <Box>
         <Footer sx={{ position: "fixed", bottom: 0 }} />

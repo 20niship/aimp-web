@@ -9,11 +9,11 @@ import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import { FileInfo } from "@/lib/global"
 import { useState } from "react";
 type Props = {
-  files: FileInfo;
+  file: FileInfo;
 };
 
 export const MyAudioDir = (props: Props) => {
-  const f = props.files;
+  const f = props.file;
   let [expand, setExpand] = useState(false);
   return (
     <>
@@ -27,7 +27,7 @@ export const MyAudioDir = (props: Props) => {
       <Collapse in={expand} sx={{ ml: 1.5 }}>
         <List component="li" disablePadding dense>
           {
-            f.child.map(c => MyAudio(c))
+            f.child.map(c => { return (<MyAudio file={c} key = "" />);})
           }
         </List>
       </Collapse>
@@ -35,9 +35,10 @@ export const MyAudioDir = (props: Props) => {
   )
 }
 
-export const MyAudio = (f: FileInfo) => {
+export const MyAudio = (props: Props) => {
+  const f = props.file;
   if (f.is_directory) {
-    return <MyAudioDir files={f} />;
+    return <MyAudioDir file={f} />;
   } else {
     return (
       <ListItemButton>

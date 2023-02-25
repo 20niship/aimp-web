@@ -26,7 +26,7 @@ export default function BasicTable() {
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
-            <TableCell extend>Title</TableCell>
+            <TableCell >Title</TableCell>
             <TableCell align="right">artists</TableCell>
             <TableCell align="right">duration</TableCell>
           </TableRow>
@@ -34,7 +34,7 @@ export default function BasicTable() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.name}
+              key={Math.random()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
